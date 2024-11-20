@@ -1,0 +1,6 @@
+<div class="cart-area">
+  <div class="total">
+    {{ totalPrice$ | async | currency : "USD" }} |
+    <span class="quantity">{{ totalQuantity$ | async }}</span>
+  </div>
+</div>

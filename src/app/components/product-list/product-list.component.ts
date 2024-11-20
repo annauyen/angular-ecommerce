@@ -7,6 +7,8 @@ import { Product } from '../../models/product';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { CartService } from '../../services/cart.service';
+import { CartItem } from '../../models/cart-item';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -32,6 +34,7 @@ export class ProductListComponent implements OnInit {
   totalElements = 0;
 
   private productService = inject(ProductService);
+  private cartService = inject(CartService);
 
   constructor(private route: ActivatedRoute) {}
 
@@ -58,12 +61,8 @@ export class ProductListComponent implements OnInit {
   }
 
   handleListProducts() {
-    const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
-    if (hasCategoryId) {
-      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
-    } else {
-      this.currentCategoryId = 1;
-    }
+    const categoryId = this.route.snapshot.paramMap.get('id');
+    this.currentCategoryId = categoryId ? parseInt(categoryId) : 1;
 
     if (this.previousCategoryId != this.currentCategoryId) {
       this.pageNumber = 1;
@@ -89,5 +88,14 @@ export class ProductListComponent implements OnInit {
     this.pageNumber = event.pageIndex;
     this.pageSize = event.pageSize;
     this.handleListProducts();
+    console.log(this.pageSize);
+    console.log(event.pageSize);
+  }
+
+  onAddToCart(product: Product) {
+    console.log('added: ' + product.name);
+    const cartItem = new CartItem(product);
+    this.cartService.addToCart(cartItem);
+    this.cartService.logCartData();
   }
 }

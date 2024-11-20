@@ -1,4 +1,4 @@
-<a routerLink="{{ linkToDetail }}">
+<a routerLink="/products/{{ product.id }}">
   <mat-card class="product-card" appearance="outlined">
     <img
       mat-card-image
@@ -8,24 +8,30 @@
 
     <mat-card-content style="text-align: center">
       <span
-        title="{{ name }}"
+        title="{{ product.name }}"
         class="d-inline-block text-truncate"
         style="max-width: 200px; font-weight: 600"
       >
-        {{ name }}
+        {{ product.name }}
       </span>
       <br />
       <span
-        title="{{ description }}"
+        title="{{ product.description }}"
         class="d-inline-block text-truncate"
         style="max-width: 200px"
       >
-        {{ description }}
+        {{ product.description }}
       </span>
-      <h6>{{ price }}</h6>
+      <h6>{{ product.unitPrice }}</h6>
     </mat-card-content>
     <mat-card-actions style="justify-content: space-around">
-      <button mat-flat-button class="cart-button">
+      <button
+        mat-flat-button
+        class="cart-button"
+        (click)="
+          $event.preventDefault(); $event.stopPropagation(); addToCart(product)
+        "
+      >
         <mat-icon>add_shopping_cart</mat-icon>
         Add to cart
       </button>

@@ -12,6 +12,7 @@ import { ProductCategory } from '../../models/product-category';
 import { ProductService } from '../../services/product.service';
 import { NgFor } from '@angular/common';
 import { SearchComponent } from '../search/search.component';
+import { CartStatusComponent } from '../cart/cart-status/cart-status.component';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ import { SearchComponent } from '../search/search.component';
     RouterLinkActive,
     NgFor,
     SearchComponent,
+    CartStatusComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

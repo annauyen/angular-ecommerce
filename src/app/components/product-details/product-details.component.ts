@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
+import { CartItem } from '../../models/cart-item';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -14,9 +16,10 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './product-details.component.scss',
 })
 export class ProductDetailsComponent implements OnInit {
-  product!: Product;
+  product: Product = {} as Product;
 
-  productService = inject(ProductService);
+  private productService = inject(ProductService);
+  private cartService = inject(CartService);
   route = inject(ActivatedRoute);
 
   ngOnInit(): void {
@@ -35,5 +38,13 @@ export class ProductDetailsComponent implements OnInit {
 
   increment() {
     this.quantity++;
+  }
+
+  addToCart() {
+    console.log(
+      `Adding to cart: ${this.product.name}, ${this.product.unitPrice}`
+    );
+    const cartItem = new CartItem(this.product, this.quantity);
+    this.cartService.addToCart(cartItem);
   }
 }
