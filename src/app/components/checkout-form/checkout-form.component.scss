@@ -1,0 +1,32 @@
+.checkout-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.half-width {
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+  margin-right: 10px;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+}
+
+li {
+  list-style-type: none;
+}
+table {
+  width: 100%;
+  td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+  }
+}

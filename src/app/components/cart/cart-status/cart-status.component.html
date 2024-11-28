@@ -1,6 +1,12 @@
 <div class="cart-area">
+  <mat-icon
+    matBadge="{{ totalQuantity$ | async }}"
+    matBadgeColor="accent"
+    style="padding: 0; margin: 0"
+  >
+    shopping_cart
+  </mat-icon>
   <div class="total">
-    {{ totalPrice$ | async | currency : "USD" }} |
-    <span class="quantity">{{ totalQuantity$ | async }}</span>
+    {{ totalPrice$ | async | currency : "USD" }}
   </div>
 </div>

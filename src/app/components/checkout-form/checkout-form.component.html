@@ -1,0 +1,108 @@
+<mat-card class="checkout-card">
+  <mat-card-header>
+    <mat-card-title>Check out</mat-card-title>
+    <mat-card-subtitle>Please fill in these information</mat-card-subtitle>
+  </mat-card-header>
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullName" />
+      <mat-error *ngIf="checkoutForm.get('fullName')?.hasError('required')">
+        Full name is required.
+      </mat-error>
+      <mat-error *ngIf="checkoutForm.get('fullName')?.hasError('minlength')">
+        Minimum 3 characters required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+      <mat-error *ngIf="checkoutForm.get('email')?.hasError('required')">
+        Email is required.
+      </mat-error>
+      <mat-error *ngIf="checkoutForm.get('email')?.hasError('email')">
+        Invalid email address.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" />
+      <mat-error *ngIf="checkoutForm.get('address')?.hasError('required')">
+        Address is required.
+      </mat-error>
+      <mat-error *ngIf="checkoutForm.get('address')?.hasError('minlength')">
+        Minimum 10 characters required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Card Number</mat-label>
+      <input matInput formControlName="cardNumber" type="text" maxlength="16" />
+      <mat-error *ngIf="checkoutForm.get('cardNumber')?.hasError('required')">
+        Card number is required.
+      </mat-error>
+      <mat-error *ngIf="checkoutForm.get('cardNumber')?.hasError('pattern')">
+        Invalid card number.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Expiration Date (MM/YY)</mat-label>
+      <input matInput formControlName="expirationDate" type="text" />
+      <mat-error
+        *ngIf="checkoutForm.get('expirationDate')?.hasError('required')"
+      >
+        Expiration date is required.
+      </mat-error>
+      <mat-error
+        *ngIf="checkoutForm.get('expirationDate')?.hasError('pattern')"
+      >
+        Invalid date format.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>CVV</mat-label>
+      <input matInput formControlName="cvv" type="text" maxlength="3" />
+      <mat-error *ngIf="checkoutForm.get('cvv')?.hasError('required')">
+        CVV is required.
+      </mat-error>
+      <mat-error *ngIf="checkoutForm.get('cvv')?.hasError('pattern')">
+        Invalid CVV.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-card>
+<br />
+<mat-card class="checkout-card">
+  <mat-card-header>
+    <mat-card-title>Review Your Order</mat-card-title>
+    <mat-card-subtitle>Please check your order again</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table class="order-table">
+      @for (item of cartItems; track $index) {
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+      </tr>
+      }
+    </table>
+    <mat-card-subtitle>Total Quantity: {{ totalQuantity }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >Total Price: {{ totalPrice | currency : "USD" }}</mat-card-subtitle
+    >
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
+  </mat-card-actions>
+</mat-card>

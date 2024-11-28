@@ -1,0 +1,83 @@
+<div class="orders-container">
+  <h2>All Customer Orders</h2>
+
+  <div *ngIf="isLoading" class="loading">Loading orders...</div>
+
+  <table
+    *ngIf="!isLoading"
+    mat-table
+    [dataSource]="orders"
+    class="mat-elevation-z8"
+  >
+    <!-- Order ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Order ID</th>
+      <td mat-cell *matCellDef="let order">{{ order.id }}</td>
+    </ng-container>
+
+    <!-- Customer Name Column -->
+    <ng-container matColumnDef="customerName">
+      <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+      <td mat-cell *matCellDef="let order">{{ order.customerName }}</td>
+    </ng-container>
+
+    <!-- Customer Email Column -->
+    <ng-container matColumnDef="customerEmail">
+      <th mat-header-cell *matHeaderCellDef>Customer Email</th>
+      <td mat-cell *matCellDef="let order">{{ order.customerEmail }}</td>
+    </ng-container>
+
+    <!-- Total Price Column -->
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef>Total Price</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.totalPrice | currency }}
+      </td>
+    </ng-container>
+
+    <!-- Total Quantity Column -->
+    <ng-container matColumnDef="totalQuantity">
+      <th mat-header-cell *matHeaderCellDef>Total Quantity</th>
+      <td mat-cell *matCellDef="let order">{{ order.totalQuantity }}</td>
+    </ng-container>
+
+    <!-- Items Column -->
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef>Items</th>
+      <td mat-cell *matCellDef="let order">
+        <ul>
+          <li *ngFor="let item of order.items">
+            {{ item.productName }} (x{{ item.quantity }}) -
+            {{ item.price | currency }}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="[
+        'id',
+        'customerName',
+        'customerEmail',
+        'totalPrice',
+        'totalQuantity',
+        'items'
+      ]"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="
+        let row;
+        columns: [
+          'id',
+          'customerName',
+          'customerEmail',
+          'totalPrice',
+          'totalQuantity',
+          'items'
+        ]
+      "
+    ></tr>
+  </table>
+</div>

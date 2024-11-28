@@ -1,64 +1,38 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
-    <div class="container-fluid">
+    <div class="container">
+      <h2>Your cart</h2>
       <div *ngIf="cartItems.length > 0">
-        <table class="table table-bordered">
-          <tr>
-            <th width="20%">Product Image</th>
-            <th width="50%">Product Detail</th>
-            <th width="30%"></th>
-          </tr>
-
-          <tr *ngFor="let tempCartItem of cartItems">
-            <td>
+        <table mat-table [dataSource]="cartItems" class="mat-elevation-z8">
+          <!-- Product Image Column -->
+          <ng-container matColumnDef="productImage">
+            <th mat-header-cell *matHeaderCellDef>Product Image</th>
+            <td mat-cell *matCellDef="let tempCartItem">
               <img
-                src="{{ tempCartItem.imageUrl }}"
+                src="assets/images/images.png"
                 class="img-responsive"
-                width="150px"
+                width="120px"
+                style="padding: 5px 5px 5px 0"
               />
             </td>
-            <td>
+          </ng-container>
+
+          <!-- Product Detail Column -->
+          <ng-container matColumnDef="productDetail">
+            <th mat-header-cell *matHeaderCellDef>Product Detail</th>
+            <td mat-cell *matCellDef="let tempCartItem">
               <p>{{ tempCartItem.name }}</p>
               <p>{{ tempCartItem.unitPrice | currency : "USD" }}</p>
             </td>
-            <td>
-              <div class="items">
-                <label>Quantity:</label>
+          </ng-container>
 
-                <div class="row no-gutters">
-                  <div class="col">
-                    <button
-                      (click)="incrementQuantity(tempCartItem)"
-                      class="btn btn-primary btn-sm"
-                    >
-                      <i class="fas fa-plus"></i>
-                    </button>
-                  </div>
-
-                  <div class="col ml-4 mr-2">
-                    {{ tempCartItem.quantity }}
-                  </div>
-
-                  <div class="col">
-                    <button
-                      (click)="decrementQuantity(tempCartItem)"
-                      class="btn btn-primary btn-sm"
-                    >
-                      <i class="fas fa-minus"></i>
-                    </button>
-                  </div>
-
-                  <div class="col-8"></div>
-                </div>
+          <!-- Quantity Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            <td mat-cell *matCellDef="let tempCartItem">
+              <div class="quantity">
+                <span>{{ tempCartItem.quantity }}</span>
               </div>
-
-              <button
-                (click)="remove(tempCartItem)"
-                class="btn btn-primary btn-sm mt-2"
-              >
-                Remove
-              </button>
-
               <p class="mt-2">
                 Subtotal:
                 {{
@@ -67,26 +41,59 @@
                 }}
               </p>
             </td>
-          </tr>
+          </ng-container>
 
-          <tr>
-            <td colspan="2"></td>
-            <td style="font-weight: bold">
-              <p>Total Quantity: {{ totalQuantity }}</p>
-              <p>Shipping: FREE</p>
-              <p>Total Price: {{ totalPrice | currency : "USD" }}</p>
-              <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
+          <!-- Actions Column (Missing previously) -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let tempCartItem">
+              <div class="actions">
+                <mat-icon
+                  class="action-icon"
+                  (click)="incrementQuantity(tempCartItem)"
+                  aria-label="Increase quantity"
+                  >add</mat-icon
+                >
+                <mat-icon
+                  class="action-icon"
+                  (click)="decrementQuantity(tempCartItem)"
+                  aria-label="Decrease quantity"
+                  >remove</mat-icon
+                >
+                <mat-icon
+                  class="action-icon"
+                  (click)="remove(tempCartItem)"
+                  style="color: red"
+                  aria-label="Remove item"
+                  >delete</mat-icon
+                >
+              </div>
             </td>
-          </tr>
+          </ng-container>
+
+          <!-- Header and Rows -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+
+        <!-- Cart Summary -->
+        <hr />
+        <div class="cart-summary">
+          <p>
+            <strong>Total Quantity: {{ totalQuantity }}</strong>
+          </p>
+
+          <p>
+            <strong>Total Price: {{ totalPrice | currency : "USD" }}</strong>
+          </p>
+          <a routerLink="/checkout">
+            <button mat-raised-button color="primary">Check out</button>
+          </a>
+        </div>
       </div>
 
-      <!-- if cart is empty then display a message -->
-      <div
-        *ngIf="cartItems.length == 0"
-        class="alert alert-warning col-md-12"
-        role="alert"
-      >
+      <!-- Empty Cart Message -->
+      <div *ngIf="cartItems.length == 0" class="mat-alert mat-alert-warning">
         Your shopping cart is empty.
       </div>
     </div>

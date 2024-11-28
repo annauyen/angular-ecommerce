@@ -78,14 +78,14 @@ export class ProductListComponent implements OnInit {
       )
       .subscribe((data) => {
         this.products = data._embedded.products;
-        this.pageNumber = data.page.number;
+        this.pageNumber = data.page.number + 1;
         this.pageSize = data.page.size;
         this.totalElements = data.page.totalElements;
       });
   }
 
   onPageChange(event: PageEvent) {
-    this.pageNumber = event.pageIndex;
+    this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.handleListProducts();
     console.log(this.pageSize);
