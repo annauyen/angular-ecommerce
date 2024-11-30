@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
     <div class="container">
-      <h2>Your cart</h2>
+      <h3>Your cart</h3>
       <div *ngIf="cartItems.length > 0">
         <table mat-table [dataSource]="cartItems" class="mat-elevation-z8">
           <!-- Product Image Column -->
@@ -94,7 +94,10 @@
 
       <!-- Empty Cart Message -->
       <div *ngIf="cartItems.length == 0" class="mat-alert mat-alert-warning">
-        Your shopping cart is empty.
+        <p>Your shopping cart is empty.</p>
+        <a routerLink="/products">
+          <button mat-raised-button color="primary">Continue shopping</button>
+        </a>
       </div>
     </div>
   </div>
