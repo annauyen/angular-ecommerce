@@ -13,6 +13,7 @@ import { ProductService } from '../../services/product.service';
 import { NgFor } from '@angular/common';
 import { SearchComponent } from '../search/search.component';
 import { CartStatusComponent } from '../cart/cart-status/cart-status.component';
+import { LoginStatusComponent } from "../login-status/login-status.component";
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,8 @@ import { CartStatusComponent } from '../cart/cart-status/cart-status.component';
     NgFor,
     SearchComponent,
     CartStatusComponent,
-  ],
+    LoginStatusComponent
+],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
