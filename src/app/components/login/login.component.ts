@@ -1,6 +1,5 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { OKTA_AUTH } from '@okta/okta-angular';
-import OktaAuth from '@okta/okta-auth-js';
 import myAppConfig from '../../config/my-app-config';
 import OktaSignIn from '@okta/okta-signin-widget';
 
@@ -14,6 +13,7 @@ import OktaSignIn from '@okta/okta-signin-widget';
 export class LoginComponent implements OnInit{
   oktaSignin: any;
   private oktaAuth = inject(OKTA_AUTH);
+
   constructor() {
 
     this.oktaSignin = new OktaSignIn({
@@ -29,35 +29,25 @@ export class LoginComponent implements OnInit{
       features: {
         registration: true
       },
+
     });
    }
 
   ngOnInit(): void {
-    this.oktaAuth.idx.register({
-      username: "lephucloc1711@gmail.com",
-      password: "Lephucloc1.",
-      "email": "lephucloc1711@gmail.com"
-    }).then(res => {
-      console.log("helloksdoasd")
-      console.log(res)
-    })
     this.oktaSignin.remove();
 
     this.oktaSignin.renderEl({
       el: '#okta-sign-in-widget'}, // this name should be same as div tag id in login.component.html
       (response: any) => {
         if (response.status === 'SUCCESS') {
-          console.log("login success")
           this.oktaAuth.signInWithRedirect();
-          this.oktaAuth.getUser().then(data => {
-            console.log(data)
-          })
-
         }
       },
       (error: any) => {
         throw error;
       }
     );
+
+    this.oktaSignin.
   }
 }
