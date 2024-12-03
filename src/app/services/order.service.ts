@@ -10,16 +10,26 @@ import { OrderStatus } from '../models/purchase';
 export class OrderService {
   private apiUrl = 'http://localhost:8080/api/orders'; // Backend URL
 
+  private orders$: Observable<Order[]> = null as unknown as Observable<Order[]>;
+
   constructor(private http: HttpClient) {}
 
   // Fetch all orders
-  getAllOrders(): Observable<Order[]> {
+  getOrders(): Observable<Order[]> {
     return this.http
       .get<Order[]>(this.apiUrl);
   }
 
   updateStatus(id: string, status: OrderStatus): Observable<any> {
     return this.http.post(this.apiUrl + "/" + id + "/status", { status });
+  }
+
+  getAllOrders(): Observable<Order[]>{
+    if (this.orders$ === null) {
+      this.orders$ = this.getOrders();
+    }
+
+    return this.orders$;
   }
 }
 

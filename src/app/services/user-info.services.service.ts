@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
+import { OKTA_AUTH } from '@okta/okta-angular';
 
-interface UserInformation {
+export interface UserInformation {
   id: string,
   profile: {
     firstName: string,
@@ -20,15 +21,13 @@ interface UserInformation {
 export class UserInfoServicesService {
   private apiUrl = environment.oktaApiURL + '/api/v1/users/';
   private apiKey = environment.oktaAPIKey
-  private userInformation: UserInformation | null = null;
+  private userInformation: Observable<UserInformation> | null = null;
   private isAuthenticated = false;
+  private oktaAuth = inject(OKTA_AUTH);
 
   constructor(private http: HttpClient) {}
 
-  getUserInformation(userId: String): Observable<UserInformation> {
-    if (this.userInformation != null) {
-      return of(this.userInformation)
-    }
+  getUserInformationByUserId(userId: String): Observable<UserInformation> {
     return this.http.get<UserInformation>(this.apiUrl + userId, {
       headers: {
         'Authorization': this.apiKey,
@@ -36,18 +35,13 @@ export class UserInfoServicesService {
     })
   }
 
-  getUserInfo(): UserInformation | null{
-    return this.userInformation
-  }
-
-  setUserInformation(userInformation: UserInformation) {
-    if (!this.userInformation) {
-      this.userInformation = userInformation;
+  getUserInfo(): Observable<UserInformation>{
+    if (this.userInformation == null) {
+      return from(this.oktaAuth.getUser()).pipe(
+        switchMap(user => this.getUserInformationByUserId(user.sub))
+      );
     }
-  }
-
-  getRole() {
-    return this.userInformation?.profile.userType
+    return this.userInformation
   }
 
   updateIsAuthenticated(isAuthen: boolean) {

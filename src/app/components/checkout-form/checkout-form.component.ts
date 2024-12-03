@@ -100,6 +100,7 @@ export class CheckoutFormComponent implements OnInit {
       quantity: tempCartItem.quantity,
       unitPrice: tempCartItem.unitPrice,
       productId: tempCartItem.id,
+      productName: tempCartItem.name
     }));
 
     // Initialize purchase object matching the backend payload

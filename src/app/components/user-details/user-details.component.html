@@ -2,8 +2,8 @@
   <h3>User Information</h3>
   <mat-card appearance="outlined" class="info-card">
     <mat-card-header>
-      <mat-card-title>Username</mat-card-title>
-      <mat-card-subtitle>Email</mat-card-subtitle>
+      <mat-card-title>{{ userInfo?.profile?.firstName + " " + userInfo?.profile?.lastName }}</mat-card-title>
+      <mat-card-subtitle>{{ userInfo?.profile?.email }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, placeat
@@ -14,6 +14,8 @@
   </mat-card>
   <br />
   <h3>Order history</h3>
-  <app-order-history />
-  <app-order-history />
+  <div *ngFor="let order of historyOrders">
+    <app-order-history [order] = "order"/>
+  </div>
+
 </div>

@@ -8,22 +8,13 @@ import { from, map, switchMap } from 'rxjs';
   providedIn: 'root'
 })
 export class AdminGuardService implements CanActivate{
-  private authService = inject(UserInfoServicesService);
-  private oktaAuthService = inject(OktaAuthStateService);
-  private oktaAuth = inject(OKTA_AUTH);
+  private userInforService = inject(UserInfoServicesService);
   private adminRole = 'admin'
 
   constructor() { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    if (this.authService.getUserInfo()) {
-      const userInfo = this.authService.getUserInfo()
-      return userInfo!.profile.userType === this.adminRole
-    }
-
-    return from(this.oktaAuth.getUser()).pipe(switchMap(data => {
-      return this.authService.getUserInformation(data.sub)
-    }), map(data => {
+    return this.userInforService.getUserInfo().pipe(map(data => {
       return data.profile.userType === this.adminRole
-    }));
+    }))
   }
 }

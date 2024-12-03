@@ -19,13 +19,13 @@ export class LoginStatusComponent implements OnInit {
   userFullName: string = '';
   private oktaAuth = inject(OKTA_AUTH);
   private oktaAuthService = inject(OktaAuthStateService);
-  private userInfoServicesService = inject(UserInfoServicesService);
+  private userInfoService = inject(UserInfoServicesService);
 
   ngOnInit(): void {
     // Subscribe to authentication state changes
     this.oktaAuthService.authState$.subscribe(
       (result) => {
-        this.userInfoServicesService.updateIsAuthenticated(result.isAuthenticated!);
+        this.userInfoService.updateIsAuthenticated(result.isAuthenticated!);
         this.isAuthenticated = result.isAuthenticated!;
         this.getUserDetails();
       }
@@ -37,9 +37,6 @@ export class LoginStatusComponent implements OnInit {
       this.oktaAuth.getUser().then(
         (res) => {
           this.userFullName = res.name as string;
-          this.userInfoServicesService.getUserInformation(res.sub).subscribe(data => {
-            this.userInfoServicesService.setUserInformation(data)
-          })
         }
       );
     }
