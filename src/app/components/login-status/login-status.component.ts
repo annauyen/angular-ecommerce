@@ -1,5 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, inject, Inject, OnInit } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
 import OktaAuth from '@okta/okta-auth-js';
@@ -8,9 +10,9 @@ import { UserInfoServicesService } from '../../services/user-info.services.servi
 @Component({
   selector: 'app-login-status',
   standalone: true,
-  imports: [NgIf, RouterLink, RouterLinkActive],
+  imports: [NgIf, RouterLink, MatButton],
   templateUrl: './login-status.component.html',
-  styleUrl: './login-status.component.scss'
+  styleUrl: './login-status.component.scss',
 })
 export class LoginStatusComponent implements OnInit {
   isAuthenticated: boolean = false;
@@ -20,7 +22,6 @@ export class LoginStatusComponent implements OnInit {
   private userInfoServicesService = inject(UserInfoServicesService);
 
   ngOnInit(): void {
-
     // Subscribe to authentication state changes
     this.oktaAuthService.authState$.subscribe(
       (result) => {
@@ -48,5 +49,4 @@ export class LoginStatusComponent implements OnInit {
     // Terminates the session with Okta and removes current tokens.
     this.oktaAuth.signOut();
   }
-
 }
