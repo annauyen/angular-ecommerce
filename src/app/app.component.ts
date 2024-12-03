@@ -28,6 +28,6 @@ export class AppComponent {
   private router = inject(Router);
 
   isLoginPage(): boolean {
-    return this.router.url === '/login'
+    return this.router.url === '/auth'
   }
 }

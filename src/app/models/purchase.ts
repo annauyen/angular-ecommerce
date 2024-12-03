@@ -9,3 +9,9 @@ export interface Purchase {
   order: Order;
   orderItems: OrderItem[];
 }
+
+export enum OrderStatus {
+  PENDING = "PENDING",
+  DELIVERED = "DELIVERED",
+  CANCELED = "CANCELED"
+}

@@ -3,6 +3,7 @@ import { Customer } from './customer';
 import { OrderItem } from './order-item';
 
 export interface Order {
+  id?: string;
   totalQuantity: number;
   totalPrice: number;
   orderTrackingNumber?: string;
@@ -12,9 +13,4 @@ export interface Order {
   orderItems?: OrderItem[];
   customer?: Customer;
   address?: Address;
-  _links?: {
-    self: { href: string };
-    order: { href: string };
-    customer: { href: string };
-  };
 }

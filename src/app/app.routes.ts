@@ -18,7 +18,7 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   const router = injector.get(Router);
 
   // Redirect the user to your custom login page
-  router.navigate(['/login']);
+  router.navigate(['/auth']);
 }
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 
@@ -33,10 +33,10 @@ export const routes: Routes = [
   { path: 'checkout', component: CheckoutFormComponent },
 
   { path: 'login/callback', component: OktaCallbackComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'auth', component: LoginComponent },
   {
-    path: 'profile',
-    component: ProfileComponent,
+    path: 'member',
+    component: MemberPageComponent,
     canActivate: [OktaAuthGuard],
   },
   {
@@ -45,7 +45,7 @@ export const routes: Routes = [
       import('./components/admin/route').then(
         (m) => m.PROTECTED_FEATURE_ROUTES
       ),
-    canActivate: [OktaAuthGuard],
+    canActivate: [OktaAuthGuard, AdminGuardService],
   },
   // {path: '**', component: ProductListComponent},
   { path: 'user', component: UserDetailsComponent },

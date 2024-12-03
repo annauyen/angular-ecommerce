@@ -29,7 +29,12 @@ export class LoginComponent implements OnInit{
       features: {
         registration: true
       },
-
+      helpLinks: {
+        help: null,
+        forgotPassword: null,
+        unlock: null,
+        custom: []
+      }
     });
    }
 
@@ -48,6 +53,5 @@ export class LoginComponent implements OnInit{
       }
     );
 
-    this.oktaSignin.
   }
 }
