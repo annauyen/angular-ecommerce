@@ -1,12 +1,12 @@
 <div class="login-status-header">
-  <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
+  <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info" routerLink="/user">
     Welcome back, {{ userFullName }}!
   </div>
 
   <button
     mat-raised-button
     *ngIf="!isAuthenticated"
-    routerLink="/login"
+    routerLink="/auth"
     class="security-btn"
   >
     Login

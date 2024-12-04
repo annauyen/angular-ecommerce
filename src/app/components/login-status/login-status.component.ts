@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
 import OktaAuth from '@okta/okta-auth-js';
+import { UserInfoServicesService } from '../../services/user-info.services.service';
 
 @Component({
   selector: 'app-login-status',
@@ -18,25 +19,26 @@ export class LoginStatusComponent implements OnInit {
   userFullName: string = '';
   private oktaAuth = inject(OKTA_AUTH);
   private oktaAuthService = inject(OktaAuthStateService);
+  private userInfoService = inject(UserInfoServicesService);
 
   ngOnInit(): void {
     // Subscribe to authentication state changes
-    this.oktaAuthService.authState$.subscribe((result) => {
-      this.isAuthenticated = result.isAuthenticated!;
-      this.getUserDetails();
-    });
+    this.oktaAuthService.authState$.subscribe(
+      (result) => {
+        this.userInfoService.updateIsAuthenticated(result.isAuthenticated!);
+        this.isAuthenticated = result.isAuthenticated!;
+        this.getUserDetails();
+      }
+    );
   }
 
   getUserDetails() {
     if (this.isAuthenticated) {
-      // Fetch the logged in user details (user's claims)
-      //
-      // user full name is exposed as a property name
-      this.oktaAuth.getUser().then((res) => {
-        console.log('sadasdsdads');
-        console.log(res);
-        this.userFullName = res.name as string;
-      });
+      this.oktaAuth.getUser().then(
+        (res) => {
+          this.userFullName = res.name as string;
+        }
+      );
     }
   }
 

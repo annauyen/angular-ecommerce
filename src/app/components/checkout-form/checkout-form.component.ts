@@ -100,6 +100,7 @@ export class CheckoutFormComponent implements OnInit {
       quantity: tempCartItem.quantity,
       unitPrice: tempCartItem.unitPrice,
       productId: tempCartItem.id,
+      productName: tempCartItem.name
     }));
 
     // Initialize purchase object matching the backend payload
@@ -161,5 +162,6 @@ export class CheckoutFormComponent implements OnInit {
 
     // navigate back to the products page
     this.router.navigateByUrl('/products');
+    this.cartService.cleanSessionStorage();
   }
 }

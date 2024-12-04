@@ -1,26 +1,19 @@
 <mat-card appearance="outlined" class="order-history-card">
   <mat-card-header>
-    <mat-card-title>Order tracking number</mat-card-title>
+    <mat-card-title>{{ order.orderTrackingNumber }}</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <table class="order-table">
-      <!-- @for (item of cartItems; track $index) { -->
+      @for (item of order.orderItems; track $index) {
       <tr>
-        <td>name of item</td>
-        <td>quantity</td>
+        <td>{{ item.productName }}</td>
+        <td> {{ item.quantity }}</td>
+        <td> {{ item.unitPrice }}</td>
       </tr>
-      <tr>
-        <td>name of item</td>
-        <td>quantity</td>
-      </tr>
-      <tr>
-        <td>name of item</td>
-        <td>quantity</td>
-      </tr>
-      <!-- } -->
+      }
     </table>
-    <mat-card-subtitle>Total Quantity: xxx</mat-card-subtitle>
-    <mat-card-subtitle>Total Price: xxx</mat-card-subtitle>
+    <mat-card-subtitle>Total Quantity: {{ getTotalQuantity() }}</mat-card-subtitle>
+    <mat-card-subtitle>Total Price: {{ getTotalPrice() }}</mat-card-subtitle>
   </mat-card-content>
 </mat-card>
 <br />

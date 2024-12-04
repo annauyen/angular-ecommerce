@@ -101,4 +101,8 @@ export class CartService {
     }
     sessionStorage.setItem('carts', JSON.stringify(this.cartItems));
   }
+
+  cleanSessionStorage() {
+    sessionStorage.removeItem('carts');
+  }
 }

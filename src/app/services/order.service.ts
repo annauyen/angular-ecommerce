@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Order } from '../models/order';
+import { OrderStatus } from '../models/purchase';
 
 @Injectable({
   providedIn: 'root',
@@ -9,24 +10,35 @@ import { Order } from '../models/order';
 export class OrderService {
   private apiUrl = 'http://localhost:8080/api/orders'; // Backend URL
 
+  private orders$: Observable<Order[]> = null as unknown as Observable<Order[]>;
+
   constructor(private http: HttpClient) {}
 
   // Fetch all orders
-  getAllOrders(): Observable<Order[]> {
+  getOrders(): Observable<Order[]> {
     return this.http
-      .get<GetOrdersResponse>(this.apiUrl)
-      .pipe(map((response) => response._embedded.orders));
+      .get<Order[]>(this.apiUrl);
+  }
+
+  updateStatus(id: string, status: OrderStatus): Observable<any> {
+    return this.http.post(this.apiUrl + "/" + id + "/status", { status });
+  }
+
+  getAllOrders(): Observable<Order[]>{
+    if (this.orders$ === null) {
+      this.orders$ = this.getOrders();
+    }
+
+    return this.orders$;
+  }
+
+  getOrdersByEmail(email: string): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(this.apiUrl, {
+        params: {
+          email
+        }
+      });
   }
 }
 
-export interface GetOrdersResponse {
-  _embedded: {
-    orders: Order[];
-  };
-  page: {
-    size: number;
-    totalElements: number;
-    totalPages: number;
-    number: number;
-  };
-}
