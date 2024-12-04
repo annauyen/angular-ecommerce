@@ -6,8 +6,8 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class FormService {
-  private countriesUrl = 'http://103.188.82.184:8080/api/countries';
-  private statesUrl = 'http://103.188.82.184:8080/api/states';
+  private countriesUrl = 'https://103.188.82.184:8080//api/countries';
+  private statesUrl = 'https://103.188.82.184:8080//api/states';
 
   constructor(private httpClient: HttpClient) {}
 

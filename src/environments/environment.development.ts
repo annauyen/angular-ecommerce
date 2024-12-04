@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrl: 'http://103.188.82.184:8080/api',
+  apiUrl: 'https://103.188.82.184:8080//api',
   oktaAPIKey: 'SSWS 00ppfNKt4TuTb4LRFk6uz1JmRaBsnqVVQV5sLLy_cf',
   oktaApiURL: 'https://dev-89944451.okta.com'
 };
