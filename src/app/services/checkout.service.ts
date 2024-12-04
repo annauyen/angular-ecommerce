@@ -7,7 +7,7 @@ import { OrderStatus, Purchase } from '../models/purchase';
   providedIn: 'root',
 })
 export class CheckoutService {
-  private purchaseUrl = 'https://103.188.82.184:8080//api/checkout/purchase';
+  private purchaseUrl = 'https://103.188.82.184:8443/api/checkout/purchase';
 
   constructor(private httpClient: HttpClient) {}
 
