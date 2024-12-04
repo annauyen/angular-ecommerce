@@ -9,7 +9,7 @@
             <th mat-header-cell *matHeaderCellDef>Product Image</th>
             <td mat-cell *matCellDef="let tempCartItem">
               <img
-                src="assets/images/images.png"
+                [src]="tempCartItem.imageUrl"
                 class="img-responsive"
                 width="120px"
                 style="padding: 5px 5px 5px 0"

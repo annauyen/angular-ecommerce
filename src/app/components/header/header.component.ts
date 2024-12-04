@@ -13,21 +13,20 @@ import { ProductService } from '../../services/product.service';
 import { NgFor } from '@angular/common';
 import { SearchComponent } from '../search/search.component';
 import { CartStatusComponent } from '../cart/cart-status/cart-status.component';
-import { LoginStatusComponent } from "../login-status/login-status.component";
+import { LoginStatusComponent } from '../login-status/login-status.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     FormsModule,
-    MatIcon,
     RouterLink,
     RouterLinkActive,
     NgFor,
     SearchComponent,
     CartStatusComponent,
-    LoginStatusComponent
-],
+    LoginStatusComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

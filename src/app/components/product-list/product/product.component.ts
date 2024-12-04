@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Product } from '../../../models/product';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-product',
   standalone: true,

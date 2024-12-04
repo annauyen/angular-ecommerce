@@ -9,6 +9,7 @@ import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { AboutComponent } from './components/about/about.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
@@ -37,4 +38,5 @@ export const routes: Routes = [
   },
   // {path: '**', component: ProductListComponent},
   { path: 'user', component: UserDetailsComponent },
+  { path: 'about', component: AboutComponent },
 ];
