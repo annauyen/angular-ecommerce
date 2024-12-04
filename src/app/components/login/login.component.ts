@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit{
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,
       authParams: {
-        pkce: true,
+        pkce: false,
         issuer: myAppConfig.oidc.issuer,
         scopes: myAppConfig.oidc.scopes
       },
