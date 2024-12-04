@@ -31,5 +31,14 @@ export class OrderService {
 
     return this.orders$;
   }
+
+  getOrdersByEmail(email: string): Observable<Order[]> {
+    return this.http
+      .get<Order[]>(this.apiUrl, {
+        params: {
+          email
+        }
+      });
+  }
 }
 

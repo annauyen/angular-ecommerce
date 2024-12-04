@@ -24,12 +24,10 @@ export class UserDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.userInfoService.getUserInfo().subscribe(user => {
       this.userInfo = user;
-      console.log("this.is user information")
-      console.log(user)
-      this.orderService.getAllOrders().subscribe(orders => {
-        this.historyOrders = orders.filter(order => order.customer!.email === user.profile.email)
-        console.log("hist to ry")
-        console.log(this.historyOrders)
+
+      this.orderService.getOrdersByEmail(user.profile.email).subscribe(orders => {
+        this.historyOrders = orders
+
       })
     })
 

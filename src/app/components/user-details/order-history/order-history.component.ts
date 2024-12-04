@@ -11,4 +11,12 @@ import { Order } from '../../../models/order';
 })
 export class OrderHistoryComponent {
   @Input({ required: true }) order!: Order;
+
+  getTotalQuantity() {
+    return this.order.orderItems?.length;
+  }
+
+  getTotalPrice() {
+    return this.order.orderItems?.map(item => item.quantity * item.unitPrice).reduce((partialSum, a) => partialSum + a, 0);
+  }
 }

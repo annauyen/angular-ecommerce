@@ -6,13 +6,14 @@
     <table class="order-table">
       @for (item of order.orderItems; track $index) {
       <tr>
-        <td>{{ item.productId }}</td>
+        <td>{{ item.productName }}</td>
         <td> {{ item.quantity }}</td>
+        <td> {{ item.unitPrice }}</td>
       </tr>
       }
     </table>
-    <mat-card-subtitle>Total Quantity: xxx</mat-card-subtitle>
-    <mat-card-subtitle>Total Price: xxx</mat-card-subtitle>
+    <mat-card-subtitle>Total Quantity: {{ getTotalQuantity() }}</mat-card-subtitle>
+    <mat-card-subtitle>Total Price: {{ getTotalPrice() }}</mat-card-subtitle>
   </mat-card-content>
 </mat-card>
 <br />
