@@ -38,7 +38,7 @@ export class CartService {
     }
 
     if (alreadyExistsInCart) {
-      existingCartItem.quantity++;
+      existingCartItem.quantity+=cartItem.quantity;
     } else {
       this.cartItems.push(cartItem);
     }
