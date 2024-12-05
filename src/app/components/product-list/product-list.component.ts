@@ -33,6 +33,10 @@ export class ProductListComponent implements OnInit {
   pageSize = 10;
   totalElements = 0;
 
+  // Sorting order state
+  sortByPriceAsc = true; // true for ascending, false for descending
+  sortByNameAsc = true;
+
   private productService = inject(ProductService);
   private cartService = inject(CartService);
 
@@ -97,5 +101,25 @@ export class ProductListComponent implements OnInit {
     const cartItem = new CartItem(product);
     this.cartService.addToCart(cartItem);
     this.cartService.logCartData();
+  }
+
+  // Sorting by Price (toggle between ascending and descending)
+  sortByPrice() {
+    this.sortByPriceAsc = !this.sortByPriceAsc; // Toggle the sorting order
+    this.products = [...this.products].sort((a, b) =>
+      this.sortByPriceAsc
+        ? a.unitPrice - b.unitPrice
+        : b.unitPrice - a.unitPrice
+    );
+  }
+
+  // Sorting by Name (toggle between ascending and descending)
+  sortByName() {
+    this.sortByNameAsc = !this.sortByNameAsc; // Toggle the sorting order
+    this.products = [...this.products].sort((a, b) =>
+      this.sortByNameAsc
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name)
+    );
   }
 }

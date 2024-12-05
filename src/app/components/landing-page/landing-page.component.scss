@@ -1,0 +1,47 @@
+h1 {
+  text-align: center;
+}
+.card {
+  height: 550px !important;
+  max-width: 400px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.mat-mdc-card-content {
+  display: flex;
+  align-items: center;
+  text-align: justify;
+}
+
+.card-owner mat-card-content {
+  padding: 15px;
+}
+
+@media (max-width: 768px) {
+  .card-owner mat-card-content {
+    padding: 10px;
+  }
+
+  .card-owner img {
+    max-width: 120px;
+  }
+}
+
+/* Medium screens and below (tablets, mobile devices) */
+@media (max-width: 667) {
+  h1 {
+    font-size: 1.5rem !important; /* 1.75rem for tablets */
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.5rem; /* Smaller font size for small screens */
+  }
+}

@@ -1,5 +1,10 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -20,6 +25,8 @@ import { Order } from '../../models/order';
 import { Purchase } from '../../models/purchase';
 import { Customer } from '../../models/customer';
 import { Address } from '../../models/address';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-checkout-form',
@@ -35,6 +42,7 @@ import { Address } from '../../models/address';
   ],
   templateUrl: './checkout-form.component.html',
   styleUrl: './checkout-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutFormComponent implements OnInit {
   checkoutForm: FormGroup;
@@ -100,7 +108,7 @@ export class CheckoutFormComponent implements OnInit {
       quantity: tempCartItem.quantity,
       unitPrice: tempCartItem.unitPrice,
       productId: tempCartItem.id,
-      productName: tempCartItem.name
+      productName: tempCartItem.name,
     }));
 
     // Initialize purchase object matching the backend payload
@@ -163,5 +171,25 @@ export class CheckoutFormComponent implements OnInit {
     // navigate back to the products page
     this.router.navigateByUrl('/products');
     this.cartService.cleanSessionStorage();
+  }
+
+  readonly dialog = inject(MatDialog);
+
+  // Open confirmation dialog
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.onSubmit();
+      }
+    });
   }
 }

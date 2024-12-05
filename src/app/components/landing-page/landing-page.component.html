@@ -1,0 +1,110 @@
+<div class="container">
+  <app-carousel></app-carousel>
+  <hr />
+  <h1>Welcome to our shop</h1>
+  <div class="row">
+    <div class="col-sm-4">
+      <mat-card class="card" appearance="outlined" routerLink="/category/1">
+        <mat-card-header>
+          <mat-card-title>Books</mat-card-title>
+          <mat-card-subtitle>With various genre</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="assets/images/category-1.png"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Explore a curated selection of books at The Nook Book Store, from
+            bestsellers to timeless classics. Whether you’re into fiction,
+            non-fiction, or children's books, we have something for every
+            reader.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-sm-4">
+      <mat-card class="card" appearance="outlined" routerLink="/category/2">
+        <mat-card-header>
+          <mat-card-title>Stationery</mat-card-title>
+          <mat-card-subtitle>With high quality</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="assets/images/category-3.png"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Our Stationery collection features premium notebooks, elegant pens,
+            planners, and more. Perfect for journaling, organizing, or simply
+            writing in style, find everything you need to express your
+            creativity.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-sm-4">
+      <mat-card class="card" appearance="outlined" routerLink="/category/3">
+        <mat-card-header>
+          <mat-card-title>Souvenirs</mat-card-title>
+          <mat-card-subtitle>For your loved ones</mat-card-subtitle>
+        </mat-card-header>
+        <img
+          mat-card-image
+          src="assets/images/category-2.png"
+          alt="Photo of a Shiba Inu"
+        />
+        <mat-card-content>
+          <p>
+            Take home a piece of The Nook with our literary-inspired Souvenirs.
+            From tote bags to bookmarks and mugs, these unique gifts are perfect
+            for book lovers or as a special keepsake.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <br />
+  <div
+    class="end"
+    style="display: block; margin-left: auto; margin-right: auto"
+  >
+    <button
+      style="display: block; margin-left: auto; margin-right: auto"
+      mat-raised-button
+      class="btn"
+      routerLink="/products"
+    >
+      Go to shopping
+    </button>
+  </div>
+  <br />
+  <div class="row">
+    <mat-card appearance="outlined" class="card-owner">
+      <mat-card-content>
+        <img
+          src="assets/images/owner.jpg"
+          alt="Owner Image"
+          class="img-fluid rounded-circle me-3"
+          style="max-width: 150px; width: 100%; height: auto"
+        />
+        <div style="margin-left: 8px">
+          "At The Nook Book, we believe that a good book has the power to
+          transport you to different worlds, open new perspectives, and ignite
+          your imagination. As passionate curators of stories and knowledge, our
+          mission is to create a cozy space where every reader can find their
+          next great adventure. Whether you're seeking the latest bestsellers,
+          timeless classics, or hidden gems, we strive to offer a carefully
+          selected collection that caters to every interest. The Nook Book is
+          not just a bookstore; it’s a community for those who appreciate the
+          joy of reading and the magic it brings to our lives. Come in, get lost
+          in a book, and let us help you discover the stories that will stay
+          with you long after you've turned the last page."
+          <div style="text-align: end"><i>- Joey Bui, Founder.</i></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

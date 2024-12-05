@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { MatCardMdImage, MatCardModule } from '@angular/material/card';
 import { Order } from '../../../models/order';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-order-history',
   standalone: true,
-  imports: [MatCardModule],
+  imports: [MatCardModule, DatePipe],
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.scss',
 })
@@ -17,6 +18,8 @@ export class OrderHistoryComponent {
   }
 
   getTotalPrice() {
-    return this.order.orderItems?.map(item => item.quantity * item.unitPrice).reduce((partialSum, a) => partialSum + a, 0);
+    return this.order.orderItems
+      ?.map((item) => item.quantity * item.unitPrice)
+      .reduce((partialSum, a) => partialSum + a, 0);
   }
 }

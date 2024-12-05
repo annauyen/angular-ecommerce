@@ -15,9 +15,8 @@
           <td>Full name:</td>
           <td>
             <mat-card-subtitle>
-              {{
-                userInfo?.profile?.firstName + " " + userInfo?.profile?.lastName
-              }}
+              {{ userInfo?.profile?.firstName || "Loading..." }}
+              {{ userInfo?.profile?.lastName || "" }}
             </mat-card-subtitle>
           </td>
         </tr>
@@ -25,7 +24,7 @@
           <td>Email:</td>
           <td>
             <mat-card-subtitle>{{
-              userInfo?.profile?.email
+              userInfo?.profile?.email || "Loading..."
             }}</mat-card-subtitle>
           </td>
         </tr>

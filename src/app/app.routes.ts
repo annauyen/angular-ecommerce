@@ -22,9 +22,11 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { AboutComponent } from './components/about/about.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'welcome', component: LandingPageComponent },
   { path: 'category/:id', component: ProductListComponent },
   { path: 'category', component: ProductListComponent },
   { path: 'products', component: ProductListComponent },

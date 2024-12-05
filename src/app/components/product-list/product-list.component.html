@@ -1,5 +1,21 @@
 <div class="container mt-3">
   <h3>Our Products</h3>
+  <!-- Sorting Controls -->
+  <div class="sort-controls">
+    <button
+      mat-flat-button
+      (click)="sortByPrice()"
+      class="sort-controls-button"
+    >
+      Sort by Price
+      <span *ngIf="sortByPriceAsc">↑</span
+      ><span *ngIf="!sortByPriceAsc">↓</span>
+    </button>
+    <button mat-flat-button (click)="sortByName()" class="sort-controls-button">
+      Sort by Name
+      <span *ngIf="sortByNameAsc">↑</span><span *ngIf="!sortByNameAsc">↓</span>
+    </button>
+  </div>
   <div class="row">
     <div
       class="col-lg-3 col-md-4 col-sm-6 mb-3"

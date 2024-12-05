@@ -24,3 +24,28 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* Default font size */
+span {
+  font-size: 1rem; /* 2rem for larger screens */
+}
+
+/* Medium screens and below (tablets, mobile devices) */
+@media (max-width: 667) {
+  span {
+    font-size: 1rem !important; /* 1.75rem for tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  span {
+    font-size: 1rem; /* 1.5rem for mobile */
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 400px) {
+  span {
+    font-size: 1rem; /* Smaller font size for small screens */
+  }
+}
