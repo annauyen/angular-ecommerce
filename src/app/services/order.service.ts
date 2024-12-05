@@ -8,7 +8,7 @@ import { OrderStatus } from '../models/purchase';
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'https://103.188.82.184:8443/api/orders'; // Backend URL
+  private apiUrl = 'http://localhost:8080/api/orders'; // Backend URL
 
   private orders$: Observable<Order[]> = null as unknown as Observable<Order[]>;
 

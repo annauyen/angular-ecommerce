@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { map, Observable } from 'rxjs';
-import { Product } from '../models/product';
+import { Product, ProductRequest } from '../models/product';
 import { GetResponse } from '../models/get-response';
 import { ProductCategory } from '../models/product-category';
 
@@ -18,6 +18,29 @@ export class ProductService {
     const searchUrl = `${this.apiUrl}/search/findByCategoryId?id=${categoryId}`;
 
     return this.getProductsFromResponse(searchUrl);
+  }
+
+  getAllProducts(): Observable<Product[]> {
+    const searchUrl = `${this.apiUrl}`;
+    return this.http
+    .get<GetResponse>(searchUrl, {
+      params: {
+        size: 999999
+      }
+    })
+    .pipe(map((response) => response._embedded.products));;
+  }
+
+  createProduct(req: ProductRequest): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, req)
+  }
+
+  updateProduct(id: string, req: ProductRequest): Observable<Product> {
+    return this.http.put<Product>(this.apiUrl + "/" + id, req)
+  }
+
+  deleteProduct(id: string): Observable<Product> {
+    return this.http.delete<Product>(this.apiUrl + "/" + id)
   }
 
   getProductsPaginate(
