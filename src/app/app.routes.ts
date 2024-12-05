@@ -12,7 +12,6 @@ import OktaAuth from '@okta/okta-auth-js';
 import { MemberPageComponent } from './components/member-page/member-page.component';
 import { AdminGuardService } from './components/guard/admin.guard.service';
 
-
 function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
   // Use injector to access any service available within your application
   const router = injector.get(Router);
@@ -22,6 +21,7 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 }
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { AboutComponent } from './components/about/about.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/products', pathMatch: 'full' },
@@ -48,7 +48,8 @@ export const routes: Routes = [
       ),
     canActivate: [OktaAuthGuard, AdminGuardService],
   },
-  // {path: '**', component: ProductListComponent},
+
   { path: 'user', component: UserDetailsComponent },
   { path: 'about', component: AboutComponent },
+  { path: '**', component: ForbiddenComponent },
 ];

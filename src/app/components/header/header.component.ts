@@ -10,10 +10,11 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductCategory } from '../../models/product-category';
 import { ProductService } from '../../services/product.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { SearchComponent } from '../search/search.component';
 import { CartStatusComponent } from '../cart/cart-status/cart-status.component';
 import { LoginStatusComponent } from '../login-status/login-status.component';
+import { UserInfoServicesService } from '../../services/user-info.services.service';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ import { LoginStatusComponent } from '../login-status/login-status.component';
     SearchComponent,
     CartStatusComponent,
     LoginStatusComponent,
+    NgIf,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -33,6 +35,17 @@ import { LoginStatusComponent } from '../login-status/login-status.component';
 export class HeaderComponent implements OnInit {
   productCategories = [] as ProductCategory[];
   productService = inject(ProductService);
+  isAdminUser: boolean = false;
+
+  constructor(private userInfoService: UserInfoServicesService) {
+    this.userInfoService.getUserInfo().subscribe((userInfo) => {
+      this.isAdminUser = userInfo.profile.userType === 'admin';
+    });
+  }
+
+  isAdmin(): boolean {
+    return this.isAdminUser;
+  }
   ngOnInit(): void {
     this.listProductCategories();
   }

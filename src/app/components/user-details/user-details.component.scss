@@ -6,3 +6,15 @@
 h3 {
   text-align: center;
 }
+.user-image {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+table {
+  width: 100%;
+  td {
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+  }
+}

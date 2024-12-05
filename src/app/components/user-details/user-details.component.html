@@ -2,20 +2,39 @@
   <h3>User Information</h3>
   <mat-card appearance="outlined" class="info-card">
     <mat-card-header>
-      <mat-card-title>{{ userInfo?.profile?.firstName + " " + userInfo?.profile?.lastName }}</mat-card-title>
-      <mat-card-subtitle>{{ userInfo?.profile?.email }}</mat-card-subtitle>
+      <img
+        src="assets/images/user.jpg"
+        alt="user image"
+        height="50px"
+        class="img-fluid mx-auto d-block user-image"
+      />
     </mat-card-header>
     <mat-card-content>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, placeat
-      quidem nesciunt, doloremque aliquam voluptates assumenda in ipsum,
-      distinctio ex recusandae blanditiis. Eligendi sapiente modi illo iure eum
-      sequi necessitatibus.
+      <table>
+        <tr>
+          <td>Full name:</td>
+          <td>
+            <mat-card-subtitle>
+              {{
+                userInfo?.profile?.firstName + " " + userInfo?.profile?.lastName
+              }}
+            </mat-card-subtitle>
+          </td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>
+            <mat-card-subtitle>{{
+              userInfo?.profile?.email
+            }}</mat-card-subtitle>
+          </td>
+        </tr>
+      </table>
     </mat-card-content>
   </mat-card>
   <br />
   <h3>Order history</h3>
   <div *ngFor="let order of historyOrders">
-    <app-order-history [order] = "order"/>
+    <app-order-history [order]="order" />
   </div>
-
 </div>
