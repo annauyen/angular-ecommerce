@@ -1,4 +1,4 @@
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,6 +27,11 @@ import { Customer } from '../../models/customer';
 import { Address } from '../../models/address';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {
+  UserInformation,
+  UserInfoServicesService,
+} from '../../services/user-info.services.service';
+import { OktaAuthStateService } from '@okta/okta-angular';
 
 @Component({
   selector: 'app-checkout-form',
@@ -39,6 +44,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatCardModule,
     ReactiveFormsModule,
     CurrencyPipe,
+    NgIf,
   ],
   templateUrl: './checkout-form.component.html',
   styleUrl: './checkout-form.component.scss',
@@ -49,13 +55,17 @@ export class CheckoutFormComponent implements OnInit {
   totalQuantity = 0;
   totalPrice = 0;
   cartItems: CartItem[] = [];
+  isAuthenticated = false;
+  userInfo = {} as UserInformation;
+  private oktaAuthService = inject(OktaAuthStateService);
 
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private cartService: CartService,
     private router: Router,
-    private checkoutService: CheckoutService
+    private checkoutService: CheckoutService,
+    private userInfoService: UserInfoServicesService
   ) {
     this.checkoutForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
@@ -74,6 +84,17 @@ export class CheckoutFormComponent implements OnInit {
   ngOnInit(): void {
     this.reviewCartDetails();
     this.cartItems = this.cartService.cartItems;
+    // Subscribe to authentication state changes
+    this.oktaAuthService.authState$.subscribe((result) => {
+      this.isAuthenticated = result.isAuthenticated!;
+    });
+    this.userInfoService.getUserInfo().subscribe((userInfo) => {
+      this.userInfo = userInfo;
+      this.checkoutForm.patchValue({
+        fullName: userInfo.profile.firstName + ' ' + userInfo.profile.lastName,
+        email: userInfo.profile.email,
+      });
+    });
   }
 
   onSubmit() {

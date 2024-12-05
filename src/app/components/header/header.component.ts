@@ -37,17 +37,16 @@ export class HeaderComponent implements OnInit {
   productService = inject(ProductService);
   isAdminUser: boolean = false;
 
-  constructor(private userInfoService: UserInfoServicesService) {
-    this.userInfoService.getUserInfo().subscribe((userInfo) => {
-      this.isAdminUser = userInfo.profile.userType === 'admin';
-    });
-  }
+  constructor(private userInfoService: UserInfoServicesService) {}
 
   isAdmin(): boolean {
     return this.isAdminUser;
   }
   ngOnInit(): void {
     this.listProductCategories();
+    this.userInfoService.getUserInfo().subscribe((userInfo) => {
+      this.isAdminUser = userInfo.profile.userType === 'admin';
+    });
   }
   listProductCategories() {
     this.productService
