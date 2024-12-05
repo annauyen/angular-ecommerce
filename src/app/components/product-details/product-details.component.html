@@ -18,7 +18,16 @@
         <div class="quantity">
           <label for="quantity">Quantity: </label>
           <div class="quantity-input">
+            <button
+              (click)="decrement()"
+              mat-mini-fab
+              aria-label="Example icon button with a delete icon"
+              class="quantity-input-item"
+            >
+              <mat-icon>remove</mat-icon>
+            </button>
             <input
+            readonly
               type="number"
               [(ngModel)]="quantity"
               name="quantity"
@@ -45,5 +54,6 @@
   <hr />
   <div class="row">
     <h2>Reviews</h2>
+    <app-product-reviews></app-product-reviews>
   </div>
 </div>

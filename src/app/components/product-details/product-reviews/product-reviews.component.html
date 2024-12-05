@@ -1,0 +1,42 @@
+<mat-card>
+
+  <!-- List of Reviews -->
+  <div *ngFor="let review of reviews" class="review-item">
+    <mat-card>
+      <mat-card-header>
+        <mat-icon mat-card-avatar>person</mat-icon>
+        <mat-card-title>{{ review.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <mat-icon color="accent" *ngFor="let star of getStars(review.rating)">star</mat-icon>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ review.comment }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Add Review Form -->
+  <form [formGroup]="reviewForm" (ngSubmit)="addReview()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Comment</mat-label>
+      <textarea matInput formControlName="comment"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Rating</mat-label>
+      <mat-select formControlName="rating">
+        <mat-option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">
+      Submit Review
+    </button>
+  </form>
+</mat-card>
