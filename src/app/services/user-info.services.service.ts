@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { from, map, Observable, of, switchMap } from 'rxjs';
-import { OKTA_AUTH } from '@okta/okta-angular';
+import { from, map, Observable, of, ReplaySubject, switchMap } from 'rxjs';
+import { OKTA_AUTH, OktaAuthStateService } from '@okta/okta-angular';
 
 export interface UserInformation {
   id: string,
@@ -21,11 +21,26 @@ export interface UserInformation {
 export class UserInfoServicesService {
   private apiUrl = environment.oktaApiURL + '/api/v1/users/';
   private apiKey = environment.oktaAPIKey
-  private userInformation: Observable<UserInformation> | null = null;
+  private userInformation: ReplaySubject<UserInformation> = new ReplaySubject<UserInformation>();;
   private isAuthenticated = false;
   private oktaAuth = inject(OKTA_AUTH);
+  private oktaAuthService = inject(OktaAuthStateService);
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+    this.oktaAuthService.authState$.subscribe(
+      (result) => {
+        this.isAuthenticated = result.isAuthenticated!;
+        if (this.isAuthenticated) {
+          from(this.oktaAuth.getUser()).pipe(
+            switchMap(user => this.getUserInformationByUserId(user.sub))
+          ).subscribe(data => {
+            this.userInformation.next(data)
+          })
+        }
+      }
+    );
+  }
 
   getUserInformationByUserId(userId: String): Observable<UserInformation> {
     return this.http.get<UserInformation>(this.apiUrl + userId, {
@@ -36,11 +51,6 @@ export class UserInfoServicesService {
   }
 
   getUserInfo(): Observable<UserInformation>{
-    if (this.userInformation == null) {
-      return from(this.oktaAuth.getUser()).pipe(
-        switchMap(user => this.getUserInformationByUserId(user.sub))
-      );
-    }
     return this.userInformation
   }
 
