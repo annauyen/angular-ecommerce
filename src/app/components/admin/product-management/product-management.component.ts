@@ -36,14 +36,13 @@ export class ProductManagementComponent {
 
   displayedColumns: string[] = ['id', 'name', 'unitPrice', 'actions'];
   dataSource = new MatTableDataSource<Product>();
-  a = [this.dataSource.data]
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe((data) => {
-      this.dataSource.data = data;
+      this.dataSource.data = data.reverse();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -64,8 +63,6 @@ export class ProductManagementComponent {
       if (result) {
         console.log('Product data:', result);
         this.addOrUpdateProduct(result)
-        this.cdr.detectChanges()
-        location.reload()
       }
     });
 
@@ -79,10 +76,12 @@ export class ProductManagementComponent {
 
     if (existingIndex !== -1) {
       // If product exists, update it
-      this.dataSource.data[existingIndex] = newProduct;
+      this.dataSource.data = this.dataSource.data.map(item =>
+        item.id === newProduct.id ? { ...newProduct } : item
+      );
     } else {
       // If product doesn't exist, add it to the top of the list
-      this.dataSource.data.push(newProduct);
+      this.dataSource.data = [newProduct, ...this.dataSource.data];
     }
   }
 
@@ -90,13 +89,7 @@ export class ProductManagementComponent {
     const confirmDeletion = confirm('Are you sure you want to delete this product?');
     if (confirmDeletion) {
       this.productService.deleteProduct(id).subscribe(res => {
-        const existingIndex = this.dataSource.data.findIndex((p) => p.id === res.id);
-        if (existingIndex !== -1) {
-          // If product exists, update it
-          this.dataSource.data.splice(existingIndex, 1);
-        }
-        this.cdr.detectChanges()
-        location.reload()
+        this.dataSource.data = this.dataSource.data.filter(item => item.id !== res.id);
       })
     }
   }
