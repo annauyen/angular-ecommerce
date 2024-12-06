@@ -4,5 +4,5 @@ import { ProductManagementComponent } from './product-management/product-managem
 
 export const PROTECTED_FEATURE_ROUTES: Route[] = [
   { path: 'orders', component: OrdersComponent },
-  { path: 'products', component: ProductManagementComponent}
-]
+  { path: 'products', component: ProductManagementComponent },
+];

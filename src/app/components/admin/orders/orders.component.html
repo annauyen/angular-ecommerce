@@ -1,6 +1,4 @@
 <div class="container" *ngIf="!isLoading; else loading">
-  <h2>Orders List</h2>
-
   <!-- Mat Table for displaying orders -->
   <table mat-table [dataSource]="orders" class="mat-elevation-z8">
     <!-- Order Tracking Number Column -->
@@ -30,7 +28,10 @@
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let order">
         <mat-form-field appearance="fill">
-          <mat-select [(value)]="order.status" (selectionChange)="onStatusChange(order, $event.value)">
+          <mat-select
+            [(value)]="order.status"
+            (selectionChange)="onStatusChange(order, $event.value)"
+          >
             <mat-option *ngFor="let status of orderStatusList" [value]="status">
               {{ status }}
             </mat-option>

@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
     this.listProductCategories();
     this.userInfoService.getUserInfo().subscribe((userInfo) => {
       this.isAdminUser = userInfo.profile.userType === 'admin';
+      console.log('user info: ', userInfo);
     });
   }
   listProductCategories() {

@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>Admin Console</h3>
+
+  <!-- Tab Navigation -->
+  <div class="tabs">
+    <div
+      class="tab"
+      [routerLink]="['/admin/products']"
+      routerLinkActive="active"
+    >
+      Product management
+    </div>
+    <div class="tab" [routerLink]="['/admin/orders']" routerLinkActive="active">
+      Orders management
+    </div>
+  </div>
+
+  <!-- Display Content for Active Tab -->
+  <router-outlet></router-outlet>
+</div>

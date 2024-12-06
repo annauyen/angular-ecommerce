@@ -23,6 +23,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { AboutComponent } from './components/about/about.component';
 import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { AdminConsoleComponent } from './components/admin/admin-console/admin-console.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
@@ -44,6 +45,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    component: AdminConsoleComponent,
     loadChildren: () =>
       import('./components/admin/route').then(
         (m) => m.PROTECTED_FEATURE_ROUTES

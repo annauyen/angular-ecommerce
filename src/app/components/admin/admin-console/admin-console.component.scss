@@ -1,0 +1,31 @@
+/* Styling for the tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background-color: #f0f0f0;
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--dark-purple);
+  color: var(--dark-purple);
+}
+
+/* Optional: Style for active tab */
+.tab.active {
+  color: var(--dark-purple);
+  font-weight: bold;
+}
