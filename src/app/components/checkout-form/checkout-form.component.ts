@@ -20,11 +20,6 @@ import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/cart-item';
 import { CheckoutService } from '../../services/checkout.service';
 import { Router } from '@angular/router';
-import { OrderItem } from '../../models/order-item';
-import { Order } from '../../models/order';
-import { Purchase } from '../../models/purchase';
-import { Customer } from '../../models/customer';
-import { Address } from '../../models/address';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {
@@ -32,7 +27,6 @@ import {
   UserInfoServicesService,
 } from '../../services/user-info.services.service';
 import { OktaAuthStateService } from '@okta/okta-angular';
-
 @Component({
   selector: 'app-checkout-form',
   standalone: true,
@@ -76,7 +70,11 @@ export class CheckoutFormComponent implements OnInit {
       cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
       expirationDate: [
         '',
-        [Validators.required, Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/)],
+        [
+          Validators.required,
+          Validators.pattern(/^(0[1-9]|1[0-2])\/\d{2}$/),
+          this.expirationDateValidator(),
+        ],
       ],
       cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
     });
@@ -212,5 +210,28 @@ export class CheckoutFormComponent implements OnInit {
         this.onSubmit();
       }
     });
+  }
+  expirationDateValidator() {
+    return (control: any) => {
+      if (!control.value) {
+        return null;
+      }
+
+      const [month, year] = control.value
+        .split('/')
+        .map((val: string) => parseInt(val, 10));
+      if (!month || !year) {
+        return null;
+      }
+
+      const currentDate = new Date();
+      const inputDate = new Date(Number(`20${year}`), month); // YY to 20YY
+
+      if (inputDate < currentDate) {
+        return { expired: true };
+      }
+
+      return null;
+    };
   }
 }

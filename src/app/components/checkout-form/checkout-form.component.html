@@ -66,6 +66,11 @@
       >
         Invalid date format.
       </mat-error>
+      <mat-error
+        *ngIf="checkoutForm.get('expirationDate')?.hasError('expired')"
+      >
+        The expiration date cannot be in the past.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="half-width">
