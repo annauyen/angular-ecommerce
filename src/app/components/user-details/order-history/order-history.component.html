@@ -22,7 +22,9 @@
     <mat-card-subtitle
       >Total Quantity: {{ getTotalQuantity() }}</mat-card-subtitle
     >
-    <mat-card-subtitle>Total Price: {{ getTotalPrice() }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >Total Price: {{ getTotalPrice() | currency }}</mat-card-subtitle
+    >
   </mat-card-content>
 </mat-card>
 <br />

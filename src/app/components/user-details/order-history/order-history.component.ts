@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { MatCardMdImage, MatCardModule } from '@angular/material/card';
 import { Order } from '../../../models/order';
-import { DatePipe, NgStyle } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-order-history',
   standalone: true,
-  imports: [MatCardModule, DatePipe, NgStyle],
+  imports: [MatCardModule, DatePipe, NgStyle, CurrencyPipe],
   templateUrl: './order-history.component.html',
   styleUrl: './order-history.component.scss',
 })
