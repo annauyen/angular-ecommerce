@@ -16,7 +16,9 @@
       >Created on:
       {{ order.dateCreated | date : "dd-MM-yyyy" }}</mat-card-subtitle
     >
-    <mat-card-subtitle>Status: {{ order.status }}</mat-card-subtitle>
+    <mat-card-subtitle [ngStyle]="getStatusStyle(order.status)"
+      >Status: {{ order.status }}</mat-card-subtitle
+    >
     <mat-card-subtitle
       >Total Quantity: {{ getTotalQuantity() }}</mat-card-subtitle
     >

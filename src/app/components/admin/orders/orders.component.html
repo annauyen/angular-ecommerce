@@ -1,6 +1,6 @@
 <div class="container" *ngIf="!isLoading; else loading">
   <!-- Mat Table for displaying orders -->
-  <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Order Tracking Number Column -->
     <ng-container matColumnDef="orderTrackingNumber">
       <th mat-header-cell *matHeaderCellDef>Order Tracking Number</th>
@@ -52,7 +52,8 @@
     <ng-container matColumnDef="customerName">
       <th mat-header-cell *matHeaderCellDef>Customer</th>
       <td mat-cell *matCellDef="let order">
-        {{ order.customer?.fullName || "Unknown" }}
+        <p>{{ order.customer?.fullName || "Unknown" }}</p>
+        <p>{{ order.customer?.email }}</p>
       </td>
     </ng-container>
 

@@ -24,17 +24,22 @@ import { MatDialog } from '@angular/material/dialog';
     MatIconModule,
     MatFormFieldModule,
     CurrencyPipe,
-    NgFor
   ],
   templateUrl: './product-management.component.html',
-  styleUrl: './product-management.component.scss'
+  styleUrl: './product-management.component.scss',
 })
 export class ProductManagementComponent {
-  private productService = inject(ProductService)
-  private dialog = inject(MatDialog)
-  private cdr = inject(ChangeDetectorRef)
+  private productService = inject(ProductService);
+  private dialog = inject(MatDialog);
+  private cdr = inject(ChangeDetectorRef);
 
-  displayedColumns: string[] = ['id', 'name', 'unitPrice', 'actions'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'description',
+    'unitPrice',
+    'actions',
+  ];
   dataSource = new MatTableDataSource<Product>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -56,27 +61,28 @@ export class ProductManagementComponent {
   onAddOrUpdateProduct(product?: Product) {
     const dialogRef = this.dialog.open(ProductDialogComponent, {
       width: '400px',
-      data: product
+      data: product,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Product data:', result);
-        this.addOrUpdateProduct(result)
+        this.addOrUpdateProduct(result);
       }
     });
-
   }
 
   addOrUpdateProduct(newProduct: Product): void {
     // Check if the product exists in the list by ID
-    console.log("asodjisaojdisaod")
-    console.log(newProduct)
-    const existingIndex = this.dataSource.data.findIndex((p) => p.id === newProduct.id);
+    console.log('asodjisaojdisaod');
+    console.log(newProduct);
+    const existingIndex = this.dataSource.data.findIndex(
+      (p) => p.id === newProduct.id
+    );
 
     if (existingIndex !== -1) {
       // If product exists, update it
-      this.dataSource.data = this.dataSource.data.map(item =>
+      this.dataSource.data = this.dataSource.data.map((item) =>
         item.id === newProduct.id ? { ...newProduct } : item
       );
     } else {
@@ -86,11 +92,15 @@ export class ProductManagementComponent {
   }
 
   onDeleteProduct(id: string) {
-    const confirmDeletion = confirm('Are you sure you want to delete this product?');
+    const confirmDeletion = confirm(
+      'Are you sure you want to delete this product?'
+    );
     if (confirmDeletion) {
-      this.productService.deleteProduct(id).subscribe(res => {
-        this.dataSource.data = this.dataSource.data.filter(item => item.id !== res.id);
-      })
+      this.productService.deleteProduct(id).subscribe((res) => {
+        this.dataSource.data = this.dataSource.data.filter(
+          (item) => item.id !== res.id
+        );
+      });
     }
   }
 }
